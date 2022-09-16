@@ -1,13 +1,29 @@
 import { Button, Container, render, Textbox, VerticalSpace, Text } from "@create-figma-plugin/ui"
 import { emit, on } from "@create-figma-plugin/utilities"
 import { h } from "preact"
-import { useCallback, useState } from "preact/hooks"
+import { useCallback, useEffect, useState } from "preact/hooks"
 
 import styles from "./styles.css"
-import { ReqSerializeJsonHandler, ResSerializeJsonHandler } from "./types"
+import {
+  ReqDocumentTitleHandler,
+  ReqSerializeJsonHandler,
+  ResDocumentTitleHandler,
+  ResSerializeJsonHandler
+} from "./types"
 
 function Plugin() {
-  const [filename, setFilename] = useState(`export.plugin.json`)
+  const [documentTitle, setDocumentTitle] = useState<string | null>(null)
+  const defaultFilename = `${documentTitle || `export`}.plugin.json`
+  const [filenameOverride, setFilenameOverride] = useState<string | null>(null)
+  const filename = filenameOverride || defaultFilename
+
+  useEffect(() => {
+    on<ResDocumentTitleHandler>(`RES_DOCUMENT_TITLE`, (documentTitle) => {
+      setDocumentTitle(documentTitle)
+    })
+    emit<ReqDocumentTitleHandler>(`REQ_DOCUMENT_TITLE`)
+  }, [])
+
   const handleDownloadJson = useCallback(
     function () {
       on<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", (json: string) =>
@@ -24,7 +40,7 @@ function Plugin() {
       <div class={styles.container}>
         <Text style={{ marginBottom: 8 }}>Filename</Text>
         <Textbox
-          onInput={(e) => setFilename(e.currentTarget.value)}
+          onInput={(e) => setFilenameOverride(e.currentTarget.value)}
           placeholder='filename'
           value={filename}
           variant='border'
