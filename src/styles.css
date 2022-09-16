@@ -1,6 +1,4 @@
-.container {
-  overflow: auto;
-}
+.container {}
 
 .editor {
   min-height: 100%;
