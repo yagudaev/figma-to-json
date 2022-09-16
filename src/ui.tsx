@@ -17,6 +17,8 @@ function Plugin() {
   const [filenameOverride, setFilenameOverride] = useState<string | null>(null)
   const filename = filenameOverride || defaultFilename
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     on<ResDocumentTitleHandler>(`RES_DOCUMENT_TITLE`, (documentTitle) => {
       setDocumentTitle(documentTitle)
@@ -26,10 +28,13 @@ function Plugin() {
 
   const handleDownloadJson = useCallback(
     function () {
-      on<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", (json: string) =>
+      setLoading(true)
+      on<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", (json: string) => {
         downloadFile(json, filename)
-      )
-      emit<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON")
+        setLoading(false)
+      })
+      // delay to allow the loading state to be set
+      setTimeout(() => emit<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON"), 100)
     },
     [filename]
   )
@@ -47,8 +52,8 @@ function Plugin() {
         />
       </div>
       <VerticalSpace space='large' />
-      <Button fullWidth onClick={handleDownloadJson}>
-        Download JSON
+      <Button fullWidth onClick={handleDownloadJson} disabled={loading}>
+        {loading ? "Loading JSON..." : "Download JSON"}
       </Button>
       <VerticalSpace space='small' />
     </Container>
