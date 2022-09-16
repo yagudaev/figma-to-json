@@ -1,14 +1,11 @@
 import { loadFontsAsync, once, showUI } from "@create-figma-plugin/utilities"
-import { InsertCodeHandler } from "./types"
+import { nodeToObject } from "@figma-plugin/helpers"
+import { ReqSerializeJsonHandler } from "./types"
 
 export default function () {
-  once<InsertCodeHandler>("INSERT_CODE", async function (code: string) {
-    const text = figma.createText()
-    await loadFontsAsync([text])
-    text.characters = code
-    figma.currentPage.selection = [text]
-    figma.viewport.scrollAndZoomIntoView([text])
-    figma.closePlugin()
+  once<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON", async function () {
+    const json = nodeToObject(figma.root)
+    console.log("Plugin JSON", json)
   })
   showUI({ height: 120, width: 320 })
 }

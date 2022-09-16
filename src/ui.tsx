@@ -5,13 +5,14 @@ import { useCallback, useEffect, useState } from "preact/hooks"
 // import Editor from "react-simple-code-editor"
 
 import styles from "./styles.css"
-import { InsertCodeHandler } from "./types"
+import { ReqSerializeJsonHandler } from "./types"
 
 function Plugin() {
   const [filename, setFilename] = useState(`export.plugin.json`)
   const handleDownloadJson = useCallback(
     function () {
-      // emit<InsertCodeHandler>("INSERT_CODE", code)
+      emit<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON")
+
       const content = JSON.stringify({ hello: "world" })
       const blob = new Blob([content], { type: "application/json" })
       const blobURL = window.URL.createObjectURL(blob)
