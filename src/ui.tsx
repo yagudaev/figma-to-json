@@ -1,8 +1,7 @@
 import { Button, Container, render, Textbox, VerticalSpace, Text } from "@create-figma-plugin/ui"
 import { emit, on } from "@create-figma-plugin/utilities"
 import { h } from "preact"
-import { useCallback, useEffect, useState } from "preact/hooks"
-// import Editor from "react-simple-code-editor"
+import { useCallback, useState } from "preact/hooks"
 
 import styles from "./styles.css"
 import { ReqSerializeJsonHandler, ResSerializeJsonHandler } from "./types"
