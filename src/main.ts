@@ -11,7 +11,7 @@ export default function () {
   on<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON", async function () {
     const json = nodeToObject(figma.root)
     console.log("Plugin JSON", json)
-    emit<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", json)
+    emit<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", JSON.stringify(json))
   })
   on<ReqDocumentTitleHandler>("REQ_DOCUMENT_TITLE", async function () {
     const title = figma.root.name

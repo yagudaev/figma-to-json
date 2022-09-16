@@ -27,7 +27,7 @@ function Plugin() {
   const handleDownloadJson = useCallback(
     function () {
       on<ResSerializeJsonHandler>("RES_SERIALIZE_JSON", (json: string) =>
-        downloadFile(JSON.stringify(json), filename)
+        downloadFile(json, filename)
       )
       emit<ReqSerializeJsonHandler>("REQ_SERIALIZE_JSON")
     },
