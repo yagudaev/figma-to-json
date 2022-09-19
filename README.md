@@ -22,6 +22,8 @@ This project aims to protect the open source design and your data by allowing yo
 
 ### Usage
 
+https://user-images.githubusercontent.com/1386966/191097407-02263aec-f335-4c3b-92c6-e475cc3b53f1.mp4
+
 1. In the Figma desktop app, open a Figma document.
 2. Search for an run `Figma To JSON` via the Quick Actions search bar.
 3. Click `Download JSON` and select a folder to download to
