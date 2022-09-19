@@ -1,22 +1,24 @@
-# Figma To JSON 💾 
+# Figma To JSON 💾
 
 A set of tools to backup Figma files as JSON files that can be read by other design tools or used to automate your workflow.
 
-## Motivation 🤔 
+![Figma to JSON Plugin Screenshot](assets/images/plugin-screenshot.png)
+
+## Motivation 🤔
 
 Figma has long been our beloved free and open community. On Sep 15, 2022 it was acquired by Adobe and that freedom we enjoyed has been put at risk.
 
 This project aims to protect the open source design and your data by allowing you to export and view it.
 
-## Quick Start ⚡️ 
+## Quick Start ⚡️
 
-### Install the plugin 
+### Install the plugin
 
 1. Download the latest release https://github.com/yagudaev/figma-to-json/releases
 2. Unzip the file to a folder
 3. In the Figma desktop app, open a Figma document.
 4. Search for and run `Import plugin from manifest…` via the Quick Actions search bar.
-5. Select the manifest you unziped in step 2
+5. Select the manifest you unzipped in step 2
 
 ### Usage
 
