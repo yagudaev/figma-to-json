@@ -20,6 +20,7 @@
     "@mantine/next": "^5.4.0",
     "@mantine/prism": "^5.4.0",
     "@tabler/icons": "^1.96.0",
+    "cookies-next": "^2.1.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"

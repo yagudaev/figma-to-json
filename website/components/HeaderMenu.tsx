@@ -2,6 +2,7 @@ import { createStyles, Header, Menu, Group, Center, Burger, Container } from "@m
 import { useDisclosure } from "@mantine/hooks"
 import { IconChevronDown } from "@tabler/icons"
 import { MantineLogo } from "@mantine/ds"
+import { ColorSchemeToggle } from "./ColorSchemeToggle"
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -93,6 +94,7 @@ export function HeaderMenu({ links }: HeaderSearchProps) {
           <MantineLogo size={28} />
           <Group spacing={5} className={classes.links}>
             {items}
+            <ColorSchemeToggle />
           </Group>
           <Burger opened={opened} onClick={toggle} className={classes.burger} size='sm' />
         </div>
