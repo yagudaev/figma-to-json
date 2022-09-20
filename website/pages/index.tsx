@@ -2,6 +2,7 @@ import type { NextPage } from "next"
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
 import { Text } from "@mantine/core"
+import { FileUpload } from "../components/FileUpload"
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Text size='xl'>Welcome to Mantine</Text>
+        <Text size='xl'>Figma to JSON</Text>
+        <FileUpload />
       </main>
 
       <footer className={styles.footer}></footer>
