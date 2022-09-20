@@ -3,8 +3,15 @@ import Head from "next/head"
 import styles from "../styles/Home.module.css"
 import { Text } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
+import dynamic from "next/dynamic"
+import { useState } from "react"
+
+const ReactJson = dynamic(() => import("react-json-view"), {
+  ssr: false
+})
 
 const Home: NextPage = () => {
+  const [json, setJson] = useState(null)
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +23,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Text size='xl'>Figma to JSON</Text>
         <FileUpload />
+        {json && <ReactJson src={json} theme='twilight' />}
       </main>
 
       <footer className={styles.footer}></footer>
