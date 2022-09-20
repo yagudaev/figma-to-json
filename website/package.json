@@ -21,15 +21,18 @@
     "@mantine/prism": "^5.4.0",
     "@tabler/icons": "^1.96.0",
     "cookies-next": "^2.1.1",
+    "kiwi-schema": "^0.4.7",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-json-view": "^1.21.3"
+    "react-json-view": "^1.21.3",
+    "uzip": "^0.20201231.0"
   },
   "devDependencies": {
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
+    "@types/uzip": "^0.20201231.0",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.1",
     "typescript": "4.8.3"

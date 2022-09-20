@@ -1,7 +1,8 @@
 import { useRef } from "react"
 import { Text, Group, Button, createStyles } from "@mantine/core"
-import { Dropzone, MIME_TYPES } from "@mantine/dropzone"
+import { Dropzone, FileWithPath, MIME_TYPES } from "@mantine/dropzone"
 import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons"
+import { figToJson } from "../lib/fig2json"
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -26,7 +27,7 @@ const useStyles = createStyles((theme) => ({
   }
 }))
 
-export function FileUpload() {
+export function FileUpload({ onDrop }: { onDrop: (files: FileWithPath[]) => void }) {
   const { classes, theme } = useStyles()
   const openRef = useRef<() => void>(null)
 
@@ -34,10 +35,11 @@ export function FileUpload() {
     <div className={classes.wrapper}>
       <Dropzone
         openRef={openRef}
-        onDrop={() => {}}
+        multiple={false}
+        onDrop={onDrop}
         className={classes.dropzone}
         radius='md'
-        accept={[MIME_TYPES.pdf]}
+        accept={{ "application/x-figma": [".fig"] }}
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>

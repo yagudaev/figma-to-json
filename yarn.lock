@@ -733,6 +733,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@types/uzip@^0.20201231.0":
+  version "0.20201231.0"
+  resolved "https://registry.yarnpkg.com/@types/uzip/-/uzip-0.20201231.0.tgz#acdc14f531c98d39d9cc93beb51676f2274bbb0c"
+  integrity sha512-h5QS4GArSRa0VqWC30rQ8q/WjDwmTrFFMOulFQUAEjhL9zUApefLnpF2Y7ZRNrfMqCjKnWGxs2AtYrN6/t699w==
+
 "@typescript-eslint/parser@^5.21.0":
   version "5.38.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.38.0.tgz#5a59a1ff41a7b43aacd1bb2db54f6bf1c02b2ff8"
@@ -2500,6 +2505,11 @@ jsonfile@^6.0.1:
     array-includes "^3.1.5"
     object.assign "^4.1.3"
 
+kiwi-schema@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/kiwi-schema/-/kiwi-schema-0.4.7.tgz#1f326121010ebc40320cdf5320e832a59be942ee"
+  integrity sha512-IpxBAobeEea4gQDHQD0wUA6IzhMM2sVZ82oeOrXZzVfGHiqGPSayGOVvaHotai4NsYUTUbryVsHsQnKa4cfPNg==
+
 kleur@^4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
@@ -3984,6 +3994,11 @@ uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uzip@^0.20201231.0:
+  version "0.20201231.0"
+  resolved "https://registry.yarnpkg.com/uzip/-/uzip-0.20201231.0.tgz#9e64b065b9a8ebf26eb7583fe8e77e1d9a15ed14"
+  integrity sha512-OZeJfZP+R0z9D6TmBgLq2LHzSSptGMGDGigGiEe0pr8UBe/7fdflgHlHBNDASTXB5jnFuxHpNaJywSg8YFeGng==
 
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
