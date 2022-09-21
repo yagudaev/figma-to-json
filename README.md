@@ -32,21 +32,27 @@ https://user-images.githubusercontent.com/1386966/191097407-02263aec-f335-4c3b-9
 
 Now you can inspect the JSON file with any text editor. We recommend using VS Code.
 
-## Other Formats 📄
+## Supported Formats ✅
 
 ### .fig files
 
-Why not use .fig?
+Figma files ending with [.fig are private and internal](https://forum.figma.com/t/inquiry-about-the-fig-file-format/6351). However, since figma does not provide a write API it is useful to create new designs.
 
-Turns out, it is an [opaque and proprietary format](https://forum.figma.com/t/inquiry-about-the-fig-file-format/6351). Figma has no intention of documenting it.
+Futhermore, if the Figma REST API is down you can be sure to use this format.
 
-We eventually plan on reverse-engineering and supporting it as well. It will provide the safest backup mechanism, but it is significantly harder to program against.
+### Figma Plugin JSON
 
-### Figma REST API
+Figma Plugin API uses a different JSON shape to the REST API. It only works when running inside of Figma Editor.
+
+### Figma Rest API (Coming soon)
+
+Figma REST API provides a way to access other files by Plugins and for automating workflows without running Figma.
 
 The REST API is developed by a separate team at Figma and contains read-only functionality. This means the [format of the data can differ significantly](https://forum.figma.com/t/need-help-with-gradienttranform-matrix/26792) from that expected by the Plugin API.
 
 In the future we would like to have a way of transforming between the REST API to the Plugin API. This will allow us to pull arbitrary Figma urls without having to open Figma Desktop first.
+
+## Other Formats 📄
 
 ### SVG Export
 
@@ -67,6 +73,10 @@ Penpot is a fantastic editor trying to leverage SVG to work across design tools.
 ### .sketch
 
 While Figma build an importer for sketch files, the Sketch team has not build an importer for .fig files.
+
+### Framer
+
+Framer can import Figma Files through the REST API.
 
 ## Contribution
 
