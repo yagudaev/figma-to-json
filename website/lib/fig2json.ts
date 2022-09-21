@@ -18,6 +18,22 @@ const calcEnd = function (fileByte: Uint8Array, start: number) {
 }
 
 export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
+  const [schemaByte, dataByte] = figToBinaryParts(fileBuffer)
+
+  const schemaBB = new ByteBuffer(schemaByte)
+  const schema = decodeBinarySchema(schemaBB)
+  const dataBB = new ByteBuffer(dataByte)
+  const schemaHelper = compileSchema(schema)
+
+  return schemaHelper[`decodeMessage`](dataBB)
+}
+
+export const jsonToFig = (json: any): Buffer | ArrayBuffer => {
+  return new Uint8Array([0, 0, 1])
+}
+
+// note fileBuffer is mutated inside
+function figToBinaryParts(fileBuffer: ArrayBuffer | Buffer): Uint8Array[] {
   let fileByte: Uint8Array = new Uint8Array(fileBuffer)
 
   // check bytes for figma comment "fig-kiwi" if doesn't exist, we first need to unzip the file
@@ -61,12 +77,5 @@ export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
     start += end
   }
 
-  const [schemaByte, dataByte] = result
-
-  const schemaBB = new ByteBuffer(schemaByte)
-  const schema = decodeBinarySchema(schemaBB)
-  const dataBB = new ByteBuffer(dataByte)
-  const schemaHelper = compileSchema(schema)
-
-  return schemaHelper[`decodeMessage`](dataBB)
+  return result
 }
