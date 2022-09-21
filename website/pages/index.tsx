@@ -1,7 +1,6 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import styles from "../styles/Home.module.css"
-import { Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
+import { Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
@@ -13,7 +12,18 @@ const ReactJson = dynamic(() => import("react-json-view"), {
 
 const Home: NextPage = () => {
   const [json, setJson] = useState<object | null>(null)
+  const [fileName, setFileName] = useState<string | null>(null)
   const { colorScheme } = useMantineColorScheme()
+
+  function handleDownloadJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+    const downloadAnchorNode = document.createElement("a")
+    downloadAnchorNode.setAttribute("href", dataStr)
+    downloadAnchorNode.setAttribute("download", `${fileName}.json`)
+    document.body.appendChild(downloadAnchorNode)
+    downloadAnchorNode.click()
+    downloadAnchorNode.remove()
+  }
 
   return (
     <Container>
@@ -34,6 +44,7 @@ const Home: NextPage = () => {
           <FileUpload
             onDrop={async (files) => {
               const file = files[0]
+              setFileName(file.name)
               const buffer = await file.arrayBuffer()
               const json = figToJson(buffer)
               setJson(json)
@@ -42,12 +53,17 @@ const Home: NextPage = () => {
         </Grid.Col>
         <Grid.Col span={6}>
           {json && (
-            <ReactJson
-              src={json}
-              collapsed={true}
-              theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
-              displayDataTypes={false}
-            />
+            <Container>
+              <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
+                <Button onClick={handleDownloadJSON}>Download JSON</Button>
+              </Container>
+              <ReactJson
+                src={json}
+                collapsed={true}
+                theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
+                displayDataTypes={false}
+              />
+            </Container>
           )}
         </Grid.Col>
       </Grid>
