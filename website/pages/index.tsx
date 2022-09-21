@@ -4,11 +4,33 @@ import { Button, Container, Grid, Text, Title, useMantineColorScheme } from "@ma
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
-import { figToJson } from "../lib/fig2json"
+import { figToJson, jsonToFig } from "../lib/fig2json"
 
 const ReactJson = dynamic(() => import("react-json-view"), {
   ssr: false
 })
+
+function downloadJSON(json: any, fileName: string) {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+  download(dataStr, `${fileName}.json`)
+}
+
+// function to download binary Uint8array
+function downloadFigma(data: Uint8Array, fileName: string) {
+  var decoder = new TextDecoder("utf8")
+  var b64encoded = btoa(decoder.decode(data))
+  const dataStr = "data:application/x-figma;base64," + b64encoded
+  download(dataStr, fileName)
+}
+
+function download(dataStr: string, fileName: string) {
+  const downloadAnchorNode = document.createElement("a")
+  downloadAnchorNode.setAttribute("href", dataStr)
+  downloadAnchorNode.setAttribute("download", fileName)
+  document.body.appendChild(downloadAnchorNode)
+  downloadAnchorNode.click()
+  downloadAnchorNode.remove()
+}
 
 const Home: NextPage = () => {
   const [json, setJson] = useState<object | null>(null)
@@ -16,13 +38,12 @@ const Home: NextPage = () => {
   const { colorScheme } = useMantineColorScheme()
 
   function handleDownloadJSON() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
-    const downloadAnchorNode = document.createElement("a")
-    downloadAnchorNode.setAttribute("href", dataStr)
-    downloadAnchorNode.setAttribute("download", `${fileName}.json`)
-    document.body.appendChild(downloadAnchorNode)
-    downloadAnchorNode.click()
-    downloadAnchorNode.remove()
+    downloadJSON(json, fileName || "figma2json.fig.json")
+  }
+
+  function handleExportFig() {
+    const data = jsonToFig(json)
+    downloadFigma(data, fileName)
   }
 
   return (
@@ -56,6 +77,9 @@ const Home: NextPage = () => {
             <Container>
               <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
                 <Button onClick={handleDownloadJSON}>Download JSON</Button>
+                <Button ml={8} variant='outline' onClick={handleExportFig}>
+                  Export .fig
+                </Button>
               </Container>
               <ReactJson
                 src={json}
