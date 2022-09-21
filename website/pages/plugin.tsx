@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
-import { Anchor, Center, Container, Grid, Group, NavLink, Text, Title } from "@mantine/core"
+import { Anchor, Button, Center, Container, Grid, Group, NavLink, Text, Title } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
@@ -32,13 +32,13 @@ const Home: NextPage = () => {
       <Center mb={12}>
         <Group align='center'>
           <Text>Version 0.1.0</Text>
-          <Anchor
+          <Button
             component='a'
             href='https://github.com/yagudaev/figma-to-json/releases/download/v0.1.0/figma-to-json-v0.1.0.zip'
             download
           >
             Download
-          </Anchor>
+          </Button>
         </Group>
       </Center>
       <Center>
