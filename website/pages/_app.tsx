@@ -1,10 +1,11 @@
 import { AppProps } from "next/app"
 import Head from "next/head"
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core"
+import { ColorScheme, ColorSchemeProvider, Container, MantineProvider } from "@mantine/core"
 import { HeaderMenu } from "../components/HeaderMenu"
 import { useState } from "react"
 import { getCookie, setCookie } from "cookies-next"
 import { GetServerSidePropsContext } from "next"
+import { Footer } from "../components/Footer"
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props
@@ -40,7 +41,10 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
               { link: "https://github.com/yagudaev/figma-to-json", label: "Github" }
             ]}
           />
-          <Component {...pageProps} />
+          <Container style={{ minHeight: "calc(100vh - 250px)" }}>
+            <Component {...pageProps} />
+          </Container>
+          <Footer />
         </MantineProvider>
       </ColorSchemeProvider>
     </>
