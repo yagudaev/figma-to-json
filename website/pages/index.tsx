@@ -1,7 +1,7 @@
 import type { NextPage } from "next"
 import Head from "next/head"
 import styles from "../styles/Home.module.css"
-import { Container, Grid, Text, Title } from "@mantine/core"
+import { Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
@@ -13,6 +13,8 @@ const ReactJson = dynamic(() => import("react-json-view"), {
 
 const Home: NextPage = () => {
   const [json, setJson] = useState<object | null>(null)
+  const { colorScheme } = useMantineColorScheme()
+
   return (
     <Container>
       <Head>
@@ -40,7 +42,12 @@ const Home: NextPage = () => {
         </Grid.Col>
         <Grid.Col span={6}>
           {json && (
-            <ReactJson src={json} collapsed={true} theme='twilight' displayDataTypes={false} />
+            <ReactJson
+              src={json}
+              collapsed={true}
+              theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
+              displayDataTypes={false}
+            />
           )}
         </Grid.Col>
       </Grid>
