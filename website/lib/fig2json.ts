@@ -18,7 +18,24 @@ const calcEnd = function (fileByte: Uint8Array, start: number) {
 }
 
 export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
-  const fileByte: Uint8Array = new Uint8Array(fileBuffer)
+  let fileByte: Uint8Array = new Uint8Array(fileBuffer)
+
+  // check bytes for figma comment "fig-kiwi" if doesn't exist, we first need to unzip the file
+  if (
+    fileByte[0] !== 102 ||
+    fileByte[1] !== 105 ||
+    fileByte[2] !== 103 ||
+    fileByte[3] !== 45 ||
+    fileByte[4] !== 107 ||
+    fileByte[5] !== 105 ||
+    fileByte[6] !== 119 ||
+    fileByte[7] !== 105
+  ) {
+    const unzipped = UZIP.parse(fileBuffer)
+    const file = unzipped["canvas.fig"]
+    fileBuffer = file.buffer
+    fileByte = new Uint8Array(fileBuffer)
+  }
 
   // 8 bytes for figma comment "fig-kiwi"
   let start = 8
