@@ -87,4 +87,5 @@ Please feel free to fork the repo and create pull requests. If you find a bug re
 - Yuan Qing Lim for https://github.com/yuanqing/create-figma-plugin
 - Figma Plugin Helper Functions: https://github.com/figma-plugin-helper-functions/figma-plugin-helpers
 - Brian Lovin for https://github.com/brianlovin/figma-export-zip
+- Boiao Ch for cracking reading .fig files in: https://github.com/liaobinbin/fig-to-json
 
