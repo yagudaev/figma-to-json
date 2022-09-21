@@ -2,6 +2,8 @@
 
 A set of tools to backup Figma files as JSON files that can be read by other design tools or used to automate your workflow.
 
+[🔥 Live Demo 🔥](https://www.figma2json.com)
+
 ![Figma to JSON Plugin Screenshot](website/public/assets/images/plugin-screenshot.png)
 
 ## Motivation 🤔
