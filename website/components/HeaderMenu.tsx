@@ -3,6 +3,7 @@ import { useDisclosure } from "@mantine/hooks"
 import { IconChevronDown } from "@tabler/icons"
 import { MantineLogo } from "@mantine/ds"
 import { ColorSchemeToggle } from "./ColorSchemeToggle"
+import Link from "next/link"
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -76,14 +77,18 @@ export function HeaderMenu({ links }: HeaderSearchProps) {
     }
 
     return (
-      <a
-        key={link.label}
-        href={link.link}
-        className={classes.link}
-        onClick={(event) => event.preventDefault()}
-      >
-        {link.label}
-      </a>
+      <Link key={link.label} href={link.link} passHref>
+        <a
+          key={link.label}
+          className={classes.link}
+          // onClick={(event) => event.preventDefault()}
+          {...(link.link.startsWith("http")
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+        >
+          {link.label}
+        </a>
+      </Link>
     )
   })
 
