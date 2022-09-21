@@ -36,7 +36,9 @@ const Home: NextPage = () => {
           />
         </Grid.Col>
         <Grid.Col span={6}>
-          {json && <ReactJson src={json} collapsed={true} theme='twilight' />}
+          {json && (
+            <ReactJson src={json} collapsed={true} theme='twilight' displayDataTypes={false} />
+          )}
         </Grid.Col>
       </Grid>
     </Container>
