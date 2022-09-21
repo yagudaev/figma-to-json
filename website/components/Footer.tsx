@@ -1,4 +1,4 @@
-import { createStyles, Container, Group, ActionIcon, Text } from "@mantine/core"
+import { createStyles, Container, Group, ActionIcon, Text, Anchor } from "@mantine/core"
 import { IconBrandTwitter, IconBrandGithub, IconBrandInstagram } from "@tabler/icons"
 import { MantineLogo } from "@mantine/ds"
 import Link from "next/link"
@@ -36,7 +36,12 @@ export function Footer() {
   return (
     <div className={classes.footer}>
       <Container className={classes.inner}>
-        <Text size='sm'>Built with ❤️ by Michael Yagudaev</Text>
+        <Text size='sm'>
+          Built with ❤️ by{" "}
+          <Anchor href='https://twitter.com/yagudaev' target='_blank'>
+            Michael Yagudaev
+          </Anchor>
+        </Text>
         <Group spacing={0} className={classes.links} position='right' noWrap>
           <Link target='_blank' href='https://twitter.com/yagudaev'>
             <ActionIcon size='lg'>
