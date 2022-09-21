@@ -24,6 +24,9 @@ const Home: NextPage = () => {
       <Title order={1} align={"center"} mb={18}>
         Figma to JSON
       </Title>
+      <Text align={"center"} mb={18}>
+        Upload your Figma file and get JSON representation of it
+      </Text>
       <Grid>
         <Grid.Col span={6}>
           <FileUpload
@@ -41,6 +44,15 @@ const Home: NextPage = () => {
           )}
         </Grid.Col>
       </Grid>
+
+      <Text size={"sm"} align={"left"} mt={18}>
+        Note: The file api is considered internal to figma, the REST and Plugin API is designed for
+        public usage.
+      </Text>
+      <Text size={"sm"} align={"left"} mt={0}>
+        However, it is useful for reading/writing figma files for plugin authors, design tool
+        authors and for design automation.
+      </Text>
     </Container>
   )
 }
