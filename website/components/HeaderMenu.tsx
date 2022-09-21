@@ -1,4 +1,4 @@
-import { createStyles, Header, Menu, Group, Center, Burger, Container } from "@mantine/core"
+import { createStyles, Header, Menu, Group, Center, Burger, Container, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { IconChevronDown } from "@tabler/icons"
 import { MantineLogo } from "@mantine/ds"
@@ -96,7 +96,9 @@ export function HeaderMenu({ links }: HeaderSearchProps) {
     <Header height={56} mb={36}>
       <Container>
         <div className={classes.inner}>
-          <MantineLogo size={28} />
+          <Text size='lg' weight='700'>
+            Figma To JSON
+          </Text>
           <Group spacing={5} className={classes.links}>
             {items}
             <ColorSchemeToggle />
