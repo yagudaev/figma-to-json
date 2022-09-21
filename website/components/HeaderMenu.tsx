@@ -88,7 +88,7 @@ export function HeaderMenu({ links }: HeaderSearchProps) {
   })
 
   return (
-    <Header height={56} mb={120}>
+    <Header height={56} mb={36}>
       <Container>
         <div className={classes.inner}>
           <MantineLogo size={28} />
