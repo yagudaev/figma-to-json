@@ -34,7 +34,11 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           }}
         >
           <HeaderMenu
-            links={[{ link: "https://github.com/yagudaev/figma-to-json", label: "Github" }]}
+            links={[
+              { link: "/", label: "File" },
+              { link: "/plugin", label: "Plugin" },
+              { link: "https://github.com/yagudaev/figma-to-json", label: "Github" }
+            ]}
           />
           <Component {...pageProps} />
         </MantineProvider>

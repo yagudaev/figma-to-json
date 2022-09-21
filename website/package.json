@@ -19,6 +19,7 @@
     "@mantine/modals": "^5.4.0",
     "@mantine/next": "^5.4.0",
     "@mantine/prism": "^5.4.0",
+    "@react-hook/intersection-observer": "^3.1.1",
     "@tabler/icons": "^1.96.0",
     "cookies-next": "^2.1.1",
     "kiwi-schema": "^0.4.7",
