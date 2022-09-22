@@ -1,6 +1,6 @@
 # Figma To JSON 💾
 
-A set of tools to convert Figma files to JSON that can be read and written to by other design tools or used to automate your workflow.
+A set of tools to programatically work with Figma files as JSON. You can use these to read and write your own figma documents without opening figma.
 
 [🔥 Live Demo 🔥](https://www.figma2json.com)
 
