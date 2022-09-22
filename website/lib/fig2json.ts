@@ -33,7 +33,7 @@ export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
   const res = await fetch("/assets/figma/schema.fig")
   const fileBuffer = await res.arrayBuffer()
 
-  const [schemaByte, dataByte] = figToBinaryParts(fileBuffer)
+  const [schemaByte, _] = figToBinaryParts(fileBuffer)
 
   const schemaBB = new ByteBuffer(schemaByte)
   const schema = decodeBinarySchema(schemaBB)
@@ -81,9 +81,6 @@ export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
   result[14] = uint8[2]
   result[15] = uint8[3]
 
-  // 0xCB2D0000
-  // 11723
-
   // transfer encoded schema to result
   result.set(schemaBytesCompressed, 16)
 
@@ -96,9 +93,6 @@ export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
   result[19 + schemaSizeWithPadding] = uint8[3]
 
   result.set(encodedDataCompressed, 16 + schemaSizeWithPadding + 4)
-
-  console.log("schemaSizeWithPadding", schemaSizeWithPadding)
-  console.log("encodedDataCompressedSizeWithPadding", encodedDataCompressedSizeWithPadding)
 
   return result
 }
@@ -127,23 +121,23 @@ function figToBinaryParts(fileBuffer: ArrayBuffer | Buffer): Uint8Array[] {
   // 8 bytes for figma comment "fig-kiwi"
   let start = 8
 
-  // jumps 4 bytes? delimiter?
+  // jumps 4 bytes over delimiter
   calcEnd(fileByte, start)
-
   start += 4
+
   const result = []
   while (start < fileByte.length) {
     let end = calcEnd(fileByte, start)
-    console.log("end is", end)
     start += 4
 
     let byteTemp = fileByte.slice(start, start + end)
 
+    // TODO: we might not need to check for this
     // Decompress everything other than PNG bytes (they remain compressed and are handled by image-loaders)
     // WARN: it is possible this byte is not png, maybe I need to check a few more bytes?
-    // if (!(fileByte[start] == 137 && fileByte[start + 1] == 80)) {
-    byteTemp = UZIP.inflateRaw(byteTemp)
-    // }
+    if (!(fileByte[start] == 137 && fileByte[start + 1] == 80)) {
+      byteTemp = UZIP.inflateRaw(byteTemp)
+    }
 
     result.push(byteTemp)
     start += end
