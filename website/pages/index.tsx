@@ -17,7 +17,6 @@ function downloadJSON(json: any, fileName: string) {
 
 // function to download binary Uint8array
 function downloadFigma(data: Uint8Array, fileName: string) {
-  const decoder = new TextDecoder("utf8")
   const b64encoded = btoa(String.fromCharCode(...data))
   const dataStr = "data:application/x-figma;base64," + b64encoded
   download(dataStr, fileName)
@@ -43,7 +42,7 @@ const Home: NextPage = () => {
 
   async function handleExportFig() {
     const data = await jsonToFig(json)
-    downloadFigma(data, fileName)
+    downloadFigma(data, fileName || "figma2json.fig")
   }
 
   return (

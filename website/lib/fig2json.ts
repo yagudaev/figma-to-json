@@ -29,7 +29,7 @@ export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
   return schemaHelper[`decodeMessage`](dataBB)
 }
 
-export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
+export const jsonToFig = async (json: any): Promise<Uint8Array> => {
   const res = await fetch("/assets/figma/schema.fig")
   const fileBuffer = await res.arrayBuffer()
 
