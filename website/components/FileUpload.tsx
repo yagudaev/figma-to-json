@@ -62,10 +62,11 @@ export function FileUpload({ onDrop }: { onDrop: (files: FileWithPath[]) => void
           <Text align='center' weight={700} size='lg' mt='xl'>
             <Dropzone.Accept>Drop files here</Dropzone.Accept>
             <Dropzone.Reject>.fig file only</Dropzone.Reject>
-            <Dropzone.Idle>Upload .fig</Dropzone.Idle>
+            <Dropzone.Idle>Upload .fig or .fig.json</Dropzone.Idle>
           </Text>
           <Text align='center' size='sm' mt='xs' color='dimmed'>
-            Drag&apos;n&apos;drop files here to upload. We can accept only <i>.fig</i> files
+            Drag&apos;n&apos;drop files here to upload. We can accept only <i>.fig</i> or{" "}
+            <i>.fig.json</i> files
           </Text>
         </div>
       </Dropzone>
