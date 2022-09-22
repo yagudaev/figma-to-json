@@ -1,6 +1,6 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import { Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
+import { Box, Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
@@ -60,46 +60,43 @@ const Home: NextPage = () => {
       <Text align={"center"} mb={18}>
         Upload your Figma file and get JSON representation of it
       </Text>
-      <Grid>
-        <Grid.Col span={6}>
-          <FileUpload
-            onDrop={async (files) => {
-              const file = files[0]
-              setFileName(file.name)
-              const buffer = await file.arrayBuffer()
-              const json = figToJson(buffer)
-              setJson(json)
-            }}
-          />
-        </Grid.Col>
-        <Grid.Col span={6}>
-          {json && (
-            <Container>
-              <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
-                <Button onClick={handleDownloadJSON}>Download JSON</Button>
-                <Button ml={8} variant='outline' onClick={handleExportFig}>
-                  Export .fig
-                </Button>
-              </Container>
-              <ReactJson
-                src={json}
-                onAdd={(edit) => {
-                  setJson(edit.updated_src)
-                }}
-                onEdit={(edit) => {
-                  setJson(edit.updated_src)
-                }}
-                onDelete={(edit) => {
-                  setJson(edit.updated_src)
-                }}
-                collapsed={true}
-                theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
-                // displayDataTypes={false}
-              />
+      <Container>
+        {json && (
+          <Box mb={24}>
+            <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
+              <Button onClick={handleDownloadJSON}>Download JSON</Button>
+              <Button ml={8} variant='outline' onClick={handleExportFig}>
+                Export .fig
+              </Button>
             </Container>
-          )}
-        </Grid.Col>
-      </Grid>
+            <ReactJson
+              style={{ minHeight: 300, borderRadius: 10 }}
+              src={json}
+              onAdd={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onEdit={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onDelete={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              collapsed={true}
+              theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
+              // displayDataTypes={false}
+            />
+          </Box>
+        )}
+        <FileUpload
+          onDrop={async (files) => {
+            const file = files[0]
+            setFileName(file.name)
+            const buffer = await file.arrayBuffer()
+            const json = figToJson(buffer)
+            setJson(json)
+          }}
+        />
+      </Container>
 
       <Text size={"sm"} align={"left"} mt={18}>
         Note: The file api is considered internal to figma, the REST and Plugin API is designed for
