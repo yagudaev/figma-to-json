@@ -1,14 +1,35 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import { Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
+import { Box, Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
 import dynamic from "next/dynamic"
 import { useState } from "react"
-import { figToJson } from "../lib/fig2json"
+import { figToJson, jsonToFig } from "../lib/fig2json"
 
 const ReactJson = dynamic(() => import("react-json-view"), {
   ssr: false
 })
+
+function downloadJSON(json: any, fileName: string) {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
+  download(dataStr, `${fileName}.json`)
+}
+
+// function to download binary Uint8array
+function downloadFigma(data: Uint8Array, fileName: string) {
+  const b64encoded = btoa(String.fromCharCode(...data))
+  const dataStr = "data:application/x-figma;base64," + b64encoded
+  download(dataStr, fileName)
+}
+
+function download(dataStr: string, fileName: string) {
+  const downloadAnchorNode = document.createElement("a")
+  downloadAnchorNode.setAttribute("href", dataStr)
+  downloadAnchorNode.setAttribute("download", fileName)
+  document.body.appendChild(downloadAnchorNode)
+  downloadAnchorNode.click()
+  downloadAnchorNode.remove()
+}
 
 const Home: NextPage = () => {
   const [json, setJson] = useState<object | null>(null)
@@ -16,13 +37,12 @@ const Home: NextPage = () => {
   const { colorScheme } = useMantineColorScheme()
 
   function handleDownloadJSON() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json))
-    const downloadAnchorNode = document.createElement("a")
-    downloadAnchorNode.setAttribute("href", dataStr)
-    downloadAnchorNode.setAttribute("download", `${fileName}.json`)
-    document.body.appendChild(downloadAnchorNode)
-    downloadAnchorNode.click()
-    downloadAnchorNode.remove()
+    downloadJSON(json, fileName || "figma2json.fig.json")
+  }
+
+  async function handleExportFig() {
+    const data = await jsonToFig(json)
+    downloadFigma(data, fileName || "figma2json.fig")
   }
 
   return (
@@ -39,34 +59,43 @@ const Home: NextPage = () => {
       <Text align={"center"} mb={18}>
         Upload your Figma file and get JSON representation of it
       </Text>
-      <Grid>
-        <Grid.Col span={6}>
-          <FileUpload
-            onDrop={async (files) => {
-              const file = files[0]
-              setFileName(file.name)
-              const buffer = await file.arrayBuffer()
-              const json = figToJson(buffer)
-              setJson(json)
-            }}
-          />
-        </Grid.Col>
-        <Grid.Col span={6}>
-          {json && (
-            <Container>
-              <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
-                <Button onClick={handleDownloadJSON}>Download JSON</Button>
-              </Container>
-              <ReactJson
-                src={json}
-                collapsed={true}
-                theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
-                displayDataTypes={false}
-              />
+      <Container>
+        {json && (
+          <Box mb={24}>
+            <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
+              <Button onClick={handleDownloadJSON}>Download JSON</Button>
+              <Button ml={8} variant='outline' onClick={handleExportFig}>
+                Export .fig
+              </Button>
             </Container>
-          )}
-        </Grid.Col>
-      </Grid>
+            <ReactJson
+              style={{ minHeight: 300, borderRadius: 10 }}
+              src={json}
+              onAdd={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onEdit={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onDelete={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              collapsed={true}
+              theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
+              // displayDataTypes={false}
+            />
+          </Box>
+        )}
+        <FileUpload
+          onDrop={async (files) => {
+            const file = files[0]
+            setFileName(file.name)
+            const buffer = await file.arrayBuffer()
+            const json = figToJson(buffer)
+            setJson(json)
+          }}
+        />
+      </Container>
 
       <Text size={"sm"} align={"left"} mt={18}>
         Note: The file api is considered internal to figma, the REST and Plugin API is designed for
