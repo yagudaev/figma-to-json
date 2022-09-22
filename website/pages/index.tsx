@@ -83,9 +83,18 @@ const Home: NextPage = () => {
               </Container>
               <ReactJson
                 src={json}
+                onAdd={(edit) => {
+                  setJson(edit.updated_src)
+                }}
+                onEdit={(edit) => {
+                  setJson(edit.updated_src)
+                }}
+                onDelete={(edit) => {
+                  setJson(edit.updated_src)
+                }}
                 collapsed={true}
                 theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
-                displayDataTypes={false}
+                // displayDataTypes={false}
               />
             </Container>
           )}
