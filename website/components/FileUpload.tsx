@@ -39,7 +39,7 @@ export function FileUpload({ onDrop }: { onDrop: (files: FileWithPath[]) => void
         onDrop={onDrop}
         className={classes.dropzone}
         radius='md'
-        accept={{ "application/x-figma": [".fig"] }}
+        accept={{ "application/x-figma": [".fig"], "application/json": [".fig.json"] }}
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>

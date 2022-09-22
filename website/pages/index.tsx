@@ -19,7 +19,7 @@ function downloadJSON(json: any, fileName: string) {
 function downloadFigma(data: Uint8Array, fileName: string) {
   const b64encoded = btoa(String.fromCharCode(...data))
   const dataStr = "data:application/x-figma;base64," + b64encoded
-  download(dataStr, fileName)
+  download(dataStr, `${fileName.replace(".fig.json", "")}.fig`)
 }
 
 function download(dataStr: string, fileName: string) {
@@ -91,7 +91,14 @@ const Home: NextPage = () => {
             const file = files[0]
             setFileName(file.name)
             const buffer = await file.arrayBuffer()
-            const json = figToJson(buffer)
+            let json
+            if (file.name.endsWith(".fig")) {
+              json = figToJson(buffer)
+            } else if (file.name.endsWith(".json")) {
+              json = JSON.parse(new TextDecoder().decode(buffer))
+            } else {
+              throw new Error("File must be .fig or .json")
+            }
             setJson(json)
           }}
         />
