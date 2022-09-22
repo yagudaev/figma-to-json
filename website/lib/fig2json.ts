@@ -73,8 +73,7 @@ export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
   result[10] = 0x00
   result[11] = 0x00
 
-  debugger
-  uint32[0] = schemaSize
+  uint32[0] = schemaSizeWithPadding
 
   // schema length
   result[12] = uint8[0]
@@ -91,12 +90,12 @@ export const jsonToFig = async (json: any): Promise<Buffer | ArrayBuffer> => {
   // data length
   uint32[0] = encodedDataCompressedSizeWithPadding
 
-  result[16 + schemaSize] = uint8[0]
-  result[17 + schemaSize] = uint8[1]
-  result[18 + schemaSize] = uint8[2]
-  result[19 + schemaSize] = uint8[3]
+  result[16 + schemaSizeWithPadding] = uint8[0]
+  result[17 + schemaSizeWithPadding] = uint8[1]
+  result[18 + schemaSizeWithPadding] = uint8[2]
+  result[19 + schemaSizeWithPadding] = uint8[3]
 
-  result.set(encodedDataCompressed, 16 + schemaSize + 4)
+  result.set(encodedDataCompressed, 16 + schemaSizeWithPadding + 4)
 
   console.log("schemaSizeWithPadding", schemaSizeWithPadding)
   console.log("encodedDataCompressedSizeWithPadding", encodedDataCompressedSizeWithPadding)
