@@ -26,7 +26,30 @@ export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
   const dataBB = new ByteBuffer(dataByte)
   const schemaHelper = compileSchema(schema)
 
-  return schemaHelper[`decodeMessage`](dataBB)
+  const json = schemaHelper[`decodeMessage`](dataBB)
+  return convertBlobsToBase64(json)
+}
+
+function convertBlobsToBase64(json: object): object {
+  if (!json.blobs) return json
+
+  return {
+    ...json,
+    blobs: json.blobs.map((blob: any) => {
+      return btoa(String.fromCharCode(...blob.bytes))
+    })
+  }
+}
+
+function convertBase64ToBlobs(json: object): object {
+  if (!json.blobs) return json
+
+  return {
+    ...json,
+    blobs: json.blobs.map((blob: any) => {
+      return { bytes: Uint8Array.from(atob(blob), (c) => c.charCodeAt(0)) }
+    })
+  }
 }
 
 export const jsonToFig = async (json: any): Promise<Uint8Array> => {
@@ -39,7 +62,7 @@ export const jsonToFig = async (json: any): Promise<Uint8Array> => {
   const schema = decodeBinarySchema(schemaBB)
   const schemaHelper = compileSchema(schema)
 
-  const encodedData = schemaHelper[`encodeMessage`](json)
+  const encodedData = schemaHelper[`encodeMessage`](convertBase64ToBlobs(json))
   const encodedDataCompressed = UZIP.deflateRaw(encodedData)
   const encodedDataCompressedSize = encodedDataCompressed.length
   const encodedDataCompressedPadding = 4 - (encodedDataCompressedSize % 4)
