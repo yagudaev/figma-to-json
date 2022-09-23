@@ -30,7 +30,7 @@ export const figToJson = (fileBuffer: Buffer | ArrayBuffer): object => {
   return convertBlobsToBase64(json)
 }
 
-function convertBlobsToBase64(json: object): object {
+function convertBlobsToBase64(json: any): object {
   if (!json.blobs) return json
 
   return {
@@ -41,7 +41,7 @@ function convertBlobsToBase64(json: object): object {
   }
 }
 
-function convertBase64ToBlobs(json: object): object {
+function convertBase64ToBlobs(json: any): object {
   if (!json.blobs) return json
 
   return {
