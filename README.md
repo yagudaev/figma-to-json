@@ -89,3 +89,7 @@ Please feel free to fork the repo and create pull requests. If you find a bug re
 - Brian Lovin for https://github.com/brianlovin/figma-export-zip
 - Boiao Ch for cracking reading .fig files in: https://github.com/liaobinbin/fig-to-json
 
+# Other Interesting Projects
+
+- https://pavellaptev.github.io/JSON-from-Figma/
+
