@@ -8,9 +8,9 @@ A set of tools to programatically work with Figma files as JSON. You can use the
 
 ## Motivation 🤔
 
-Figma has long been our beloved free and open community. On Sep 15, 2022 it was acquired by Adobe and that freedom we enjoyed has been put at risk.
+We believe you should own your data and be able to browse, edit and export anything you choose out of your design tools.
 
-This project aims to protect the open source design and your data by allowing you to export and view it.
+In an era of AI 🤖 and Open Source software, we believe design formats should also be open-source. This is our gift to the community 🎁.
 
 ## Quick Start ⚡️
 
