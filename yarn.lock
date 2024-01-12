@@ -2777,10 +2777,10 @@ keyv@^4.5.3:
   dependencies:
     json-buffer "3.0.1"
 
-kiwi-schema@^0.4.7:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/kiwi-schema/-/kiwi-schema-0.4.7.tgz#1f326121010ebc40320cdf5320e832a59be942ee"
-  integrity sha512-IpxBAobeEea4gQDHQD0wUA6IzhMM2sVZ82oeOrXZzVfGHiqGPSayGOVvaHotai4NsYUTUbryVsHsQnKa4cfPNg==
+kiwi-schema@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/kiwi-schema/-/kiwi-schema-0.5.0.tgz#9346caa6a41fe68df58247192a936fcfb9db9974"
+  integrity sha512-X+FpfU0yTEtc6aTHS7VwbOpvQwRt70+pXXWRI5fd6CvWhe7pSVC854TVo4Zo0x5/wwcWj+/9KUlXpdcP0dY9AA==
 
 kleur@^4.1.5:
   version "4.1.5"
