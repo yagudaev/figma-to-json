@@ -53,7 +53,7 @@ function convertBase64ToBlobs(json: any): object {
 }
 
 export const jsonToFig = async (json: any): Promise<Uint8Array> => {
-  const res = await fetch("/assets/figma/schema.fig")
+  const res = await fetch("/assets/figma/schema-2024-01-30.fig")
   const fileBuffer = await res.arrayBuffer()
 
   const [schemaByte, _] = figToBinaryParts(fileBuffer)
