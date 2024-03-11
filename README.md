@@ -72,7 +72,7 @@ Penpot is a fantastic editor trying to leverage SVG to work across design tools.
 
 ### .sketch
 
-While Figma build an importer for sketch files, the Sketch team has not build an importer for .fig files.
+Sketch team provides a command line tool to convert .fig files into Sketch design, [fig2sketch](https://github.com/sketch-hq/fig2sketch/)
 
 ### Framer
 
