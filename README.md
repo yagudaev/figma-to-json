@@ -62,9 +62,19 @@ For that reason, when Figma exports to SVG it removes certain metadata. E.g. Tex
 
 ### OpenDesign
 
-[OpenDesign](http://opendesign.dev/) is an incredible initiative to create a uniform format we can share across design tools. The format is called Octopus. It supports most of the features of Figma, [https://opendesign.dev/docs/design-format-support](https://opendesign.dev/docs/design-format-support).
+[OpenDesign](http://opendesign.dev/) was an incredible initiative to create a uniform format we can share across design tools. The format is called Octopus. It supports most of the features of Figma, [https://opendesign.dev/docs/design-format-support](https://opendesign.dev/docs/design-format-support).
 
-Parts of the stack like the render are not fully-open source, so sadly we couldn't simply extend their work yet. We hope to chat with their team and see what we can do.
+Parts of the stack like the render are not fully-open source, so sadly we couldn't simply extend their work yet.
+
+OpenDesign was shutdown on Oct 1st, 2023.
+
+### VeryGoodGraphics
+
+[VeryGoodGraphics](https://docs.verygoodgraphics.com/) is the successor to OpenDesign. It is the next-gen vector graphics which has an open format called [VGG Specs](https://docs.verygoodgraphics.com/specs/overview) that is open, readable and compatible with popular design tools and formats.
+
+Although VGG has its application for cross-platform design-as-code UI development, the VGG format is well-designed and well-documented to be useful for other purposes.
+
+VGG provides an online service called [Daruma](https://verygoodgraphics.com/daruma) for converting and rendering other design files, including .fig files. The .fig converter are not open-sourced yet, however, they open-sourced their C++ Sketch converter [vgg_sketch_parser](https://github.com/verygoodgraphics/vgg_sketch_parser).
 
 ### Penpot
 
