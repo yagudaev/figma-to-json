@@ -70,7 +70,7 @@ OpenDesign was shutdown on Oct 1st, 2023.
 
 ### VeryGoodGraphics
 
-[VeryGoodGraphics](https://docs.verygoodgraphics.com/) is the successor to OpenDesign. It is the next-gen vector graphics which has an open format called [VGG Specs](https://docs.verygoodgraphics.com/specs/overview) that is open, readable and compatible with popular design tools and formats.
+[VeryGoodGraphics](https://docs.verygoodgraphics.com/) is an alternative to OpenDesign. It is the next-gen vector graphics which has an open format called [VGG Specs](https://docs.verygoodgraphics.com/specs/overview) that is open, readable and compatible with popular design tools and formats.
 
 Although VGG has its application for cross-platform design-as-code UI development, the VGG format is well-designed and well-documented to be useful for other purposes.
 
