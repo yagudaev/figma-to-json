@@ -7,6 +7,8 @@ import { getCookie, setCookie } from "cookies-next"
 import { GetServerSidePropsContext } from "next"
 import { Footer } from "../components/Footer"
 
+import { Analytics } from "@vercel/analytics/react"
+
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme)
@@ -47,6 +49,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           <Footer />
         </MantineProvider>
       </ColorSchemeProvider>
+      <Analytics />
     </>
   )
 }
