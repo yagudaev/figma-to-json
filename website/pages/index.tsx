@@ -1,10 +1,14 @@
+import { useState ,useMemo} from "react"
 import type { NextPage } from "next"
+
 import Head from "next/head"
+import dynamic from "next/dynamic"
+
+import { figToJson, jsonToFig } from "../lib/fig2json"
+import makeNodesToTree from "../lib/utils/arrayToTree"
+
 import { Box, Button, Container, Grid, Text, Title, useMantineColorScheme } from "@mantine/core"
 import { FileUpload } from "../components/FileUpload"
-import dynamic from "next/dynamic"
-import { useState } from "react"
-import { figToJson, jsonToFig } from "../lib/fig2json"
 
 const ReactJson = dynamic(() => import("react-json-view"), {
   ssr: false
@@ -31,10 +35,18 @@ function download(dataStr: string, fileName: string) {
   downloadAnchorNode.remove()
 }
 
+
 const Home: NextPage = () => {
-  const [json, setJson] = useState<object | null>(null)
+  const [json, setJson] = useState<Object | null>(null)
   const [fileName, setFileName] = useState<string | null>(null)
   const { colorScheme } = useMantineColorScheme()
+  const tree = useMemo(() => {
+    if(json) {
+         return makeNodesToTree((json as any).nodeChanges)
+    }
+
+    return null;
+  },[json])
 
   function handleDownloadJSON() {
     downloadJSON(json, fileName || "figma2json.fig.json")
@@ -60,16 +72,21 @@ const Home: NextPage = () => {
         Upload your Figma file and get JSON representation of it
       </Text>
       <Container>
-        {json && (
-          <Box mb={24}>
+
+        {(json && tree) ? (
+          <Box mb={24 }>
             <Container style={{ display: "flex", justifyContent: "center" }} mb={10}>
               <Button onClick={handleDownloadJSON}>Download JSON</Button>
               <Button ml={8} variant='outline' onClick={handleExportFig}>
                 Export .fig
               </Button>
             </Container>
+
+            
+            <Box style={{ display: "flex", justifyContent: "space-between" }} mb={24}>
+
             <ReactJson
-              style={{ minHeight: 300, borderRadius: 10 }}
+              style={{ minHeight: 500, borderRadius: 10 }}
               src={json}
               onAdd={(edit) => {
                 setJson(edit.updated_src)
@@ -84,14 +101,36 @@ const Home: NextPage = () => {
               theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
               // displayDataTypes={false}
             />
+
+
+            <ReactJson
+              style={{ minHeight: 500, borderRadius: 10 }}
+              src={tree}
+              collapsed={true}
+              onAdd={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onEdit={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              onDelete={(edit) => {
+                setJson(edit.updated_src)
+              }}
+              theme={colorScheme === "dark" ? "twilight" : "shapeshifter:inverted"}
+              // displayDataTypes={false}
+            />
           </Box>
-        )}
+        </Box>
+        ) : null}
+
+
         <FileUpload
           onDrop={async (files) => {
             const file = files[0]
             setFileName(file.name)
             const buffer = await file.arrayBuffer()
             let json
+
             if (file.name.endsWith(".fig")) {
               json = figToJson(buffer)
             } else if (file.name.endsWith(".json")) {
